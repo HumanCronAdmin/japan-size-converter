@@ -1,0 +1,73 @@
+/* Japan Size Converter - Custom Styles */
+
+/* Smooth transitions for all interactive elements */
+.btn-option {
+  transition: all 0.15s ease;
+}
+
+/* Active/selected button state */
+.btn-option.active {
+  background-color: #1e3a5f;
+  color: #ffffff;
+  border-color: #1e3a5f;
+}
+
+/* Table row highlight on click */
+.size-row {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.size-row:hover {
+  background-color: #e0e7ff;
+}
+
+.size-row.highlighted {
+  background-color: #fbbf24;
+  font-weight: 600;
+}
+
+/* Ensure tap targets are large enough */
+.btn-option {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Table styling */
+.size-table th {
+  background-color: #1e3a5f;
+  color: #ffffff;
+}
+
+.size-table td {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.size-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .btn-group .btn-option {
+    width: 100%;
+    text-align: center;
+  }
+
+  .size-table {
+    font-size: 0.85rem;
+  }
+
+  .size-table th,
+  .size-table td {
+    padding: 8px 6px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+}

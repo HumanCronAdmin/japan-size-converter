@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japan Size Converter — Clothing & Shoe Size Charts</title>
+  <meta name="description" content="Convert Japanese clothing and shoe sizes to US, UK, EU, and AU. Accurate size charts for tops, bottoms, and shoes.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-[#1e3a5f] text-white py-5 px-4 text-center shadow-md">
+    <h1 class="text-xl sm:text-2xl font-bold tracking-tight">🇯🇵 Japan Size Converter</h1>
+    <p class="text-sm sm:text-base text-blue-200 mt-1">Find your Japanese size in seconds</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-2xl w-full mx-auto px-4 py-6 space-y-6">
+
+    <!-- Country Selection -->
+    <section>
+      <label class="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">Your Country</label>
+      <div class="flex flex-wrap gap-2 btn-group" id="country-buttons">
+        <button class="btn-option active flex-1 min-w-[60px] px-4 py-3 rounded-lg border-2 border-[#1e3a5f] text-sm font-semibold text-center" data-value="US">US</button>
+        <button class="btn-option flex-1 min-w-[60px] px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="UK">UK</button>
+        <button class="btn-option flex-1 min-w-[60px] px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="EU">EU</button>
+        <button class="btn-option flex-1 min-w-[60px] px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="AU">AU</button>
+      </div>
+    </section>
+
+    <!-- Gender Selection -->
+    <section>
+      <label class="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">Gender</label>
+      <div class="flex gap-2 btn-group" id="gender-buttons">
+        <button class="btn-option active flex-1 px-4 py-3 rounded-lg border-2 border-[#1e3a5f] text-sm font-semibold text-center" data-value="men">Men</button>
+        <button class="btn-option flex-1 px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="women">Women</button>
+      </div>
+    </section>
+
+    <!-- Category Selection -->
+    <section>
+      <label class="block text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">Category</label>
+      <div class="flex flex-wrap gap-2 btn-group" id="category-buttons">
+        <button class="btn-option active flex-1 min-w-[80px] px-4 py-3 rounded-lg border-2 border-[#1e3a5f] text-sm font-semibold text-center" data-value="tops">Tops</button>
+        <button class="btn-option flex-1 min-w-[80px] px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="bottoms">Bottoms</button>
+        <button class="btn-option flex-1 min-w-[80px] px-4 py-3 rounded-lg border-2 border-gray-300 text-gray-600 text-sm font-semibold text-center" data-value="shoes">Shoes</button>
+      </div>
+    </section>
+
+    <!-- Info Banner -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
+      <strong>Tip:</strong> Japanese sizes run 1–2 sizes smaller than Western sizes. Tap a row to highlight your size.
+    </div>
+
+    <!-- Size Table -->
+    <section>
+      <div class="overflow-x-auto rounded-lg shadow">
+        <table class="size-table w-full text-sm" id="size-table">
+          <thead>
+            <tr id="table-header"></tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t border-gray-200 py-4 px-4 text-center">
+    <p class="text-xs text-gray-500">Data based on JIS standards and international sizing charts.</p>
+    <p class="text-xs text-gray-400 mt-1">Sizes are approximate. Always check the brand's specific size chart.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    // State
+    let state = {
+      country: 'US',
+      gender: 'men',
+      category: 'tops'
+    };
+
+    // Column index mapping for each country
+    // Headers order: Japan, US, UK, EU, AU
+    const countryColumnIndex = { US: 1, UK: 2, EU: 3, AU: 4 };
+
+    // Initialize button groups
+    function initButtonGroup(containerId, stateKey) {
+      const container = document.getElementById(containerId);
+      container.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-option');
+        if (!btn) return;
+
+        // Update state
+        state[stateKey] = btn.dataset.value;
+
+        // Update button styles
+        container.querySelectorAll('.btn-option').forEach(b => {
+          b.classList.remove('active');
+          b.classList.add('border-gray-300', 'text-gray-600');
+          b.classList.remove('border-[#1e3a5f]');
+        });
+        btn.classList.add('active');
+        btn.classList.remove('border-gray-300', 'text-gray-600');
+        btn.classList.add('border-[#1e3a5f]');
+
+        renderTable();
+      });
+    }
+
+    // Render the size table
+    function renderTable() {
+      const data = SIZE_DATA[state.category]?.[state.gender];
+      if (!data) return;
+
+      const colIndex = countryColumnIndex[state.country];
+      const headerRow = document.getElementById('table-header');
+      const tbody = document.getElementById('table-body');
+
+      // Build headers: Japan + selected country
+      headerRow.innerHTML = '';
+      const japanHeader = data.headers[0];
+      const countryHeader = data.headers[colIndex];
+
+      [japanHeader, countryHeader].forEach((text, i) => {
+        const th = document.createElement('th');
+        th.className = 'px-4 py-3 text-left text-sm font-semibold uppercase tracking-wide';
+        if (i === 0) th.style.width = '50%';
+        th.textContent = text;
+        headerRow.appendChild(th);
+      });
+
+      // Build rows
+      tbody.innerHTML = '';
+      data.rows.forEach((row) => {
+        const tr = document.createElement('tr');
+        tr.className = 'size-row bg-white';
+
+        const japanCell = document.createElement('td');
+        japanCell.className = 'px-4 py-3 font-medium text-gray-900';
+        japanCell.textContent = row[0];
+
+        const countryCell = document.createElement('td');
+        countryCell.className = 'px-4 py-3 text-gray-700';
+        countryCell.textContent = row[colIndex];
+
+        tr.appendChild(japanCell);
+        tr.appendChild(countryCell);
+
+        // Click to highlight
+        tr.addEventListener('click', () => {
+          tbody.querySelectorAll('.size-row').forEach(r => r.classList.remove('highlighted'));
+          tr.classList.toggle('highlighted');
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Initialize
+    initButtonGroup('country-buttons', 'country');
+    initButtonGroup('gender-buttons', 'gender');
+    initButtonGroup('category-buttons', 'category');
+    renderTable();
+  </script>
+</body>
+</html>
