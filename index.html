@@ -19,6 +19,7 @@
   <meta name="twitter:description" content="Japanese S is not your S. Convert Japanese clothing and shoe sizes to US, UK, EU, AU instantly.">
   <link rel="canonical" href="https://humancronadmin.github.io/japan-size-converter/">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📏</text></svg>">
+  <link rel="manifest" href="manifest.json">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"WebApplication","name":"Japan Size Converter","url":"https://humancronadmin.github.io/japan-size-converter/","description":"Convert Japanese clothing and shoe sizes to US, UK, EU, and AU.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
   </script>
@@ -98,6 +99,7 @@
     <p class="text-xs text-gray-500">Data based on JIS standards and international sizing charts.</p>
     <p class="text-xs text-gray-400 mt-1">Sizes are approximate. Always check the brand's specific size chart.</p>
   <div style="text-align:center;padding:16px 12px 4px;font-size:0.82rem;color:#888;border-top:1px solid #e0e0e033;margin-top:12px;"><p style="margin-bottom:8px;font-weight:600;">More Free Tools</p><p style="margin-bottom:4px;"><a href="https://humancronadmin.github.io/japan-emergency-phrases/" style="color:#888;text-decoration:none;">Emergency Phrases</a> &middot; <a href="https://humancronadmin.github.io/japan-utility-setup/" style="color:#888;text-decoration:none;">Utility Setup Guide</a> &middot; <a href="https://humancronadmin.github.io/japan-scam-checker/" style="color:#888;text-decoration:none;">Scam Checker</a></p></div><div style="text-align:center;padding:16px 12px 8px;font-size:0.82rem;color:#888;"><p style="margin-bottom:6px;">If you found this useful, consider supporting:</p><p><a href="https://ko-fi.com/japandevtools" target="_blank" rel="noopener" style="color:#FF5E5B;text-decoration:none;font-weight:600;margin:0 8px;">&#9749; Ko-fi</a><a href="https://buymeacoffee.com/japandevtools" target="_blank" rel="noopener" style="color:#FFDD00;text-decoration:none;font-weight:600;margin:0 8px;background:#0D0C22;padding:2px 8px;border-radius:4px;">&#9749; Buy Me a Coffee</a></p></div>
+<div style="text-align:center;padding:12px 12px 4px;font-size:0.82rem;color:#888;"><p style="margin-bottom:6px;">Share this tool</p><p><button onclick="if(navigator.share){navigator.share({title:document.title,text:'Convert Japanese clothing and shoe sizes instantly',url:'https://humancronadmin.github.io/japan-size-converter/'})}else{window.open('https://twitter.com/intent/tweet?url=https%3A//humancronadmin.github.io/japan-size-converter/\&text=Convert%20Japanese%20clothing%20and%20shoe%20sizes%20instantly','_blank')}" style="background:none;border:1px solid #ccc;border-radius:4px;padding:4px 12px;font-size:0.8rem;cursor:pointer;color:#888;margin:0 4px;min-height:32px;">Share</button><a href="https://twitter.com/intent/tweet?url=https%3A//humancronadmin.github.io/japan-size-converter/\&text=Convert%20Japanese%20clothing%20and%20shoe%20sizes%20instantly" target="_blank" rel="noopener" style="color:#1DA1F2;text-decoration:none;font-weight:600;margin:0 6px;font-size:0.82rem;">Twitter</a><a href="https://reddit.com/submit?url=https%3A//humancronadmin.github.io/japan-size-converter/\&title=Convert%20Japanese%20clothing%20and%20shoe%20sizes%20instantly" target="_blank" rel="noopener" style="color:#FF4500;text-decoration:none;font-weight:600;margin:0 6px;font-size:0.82rem;">Reddit</a></p></div>
 </footer>
 
   <script src="data.js"></script>
@@ -133,7 +135,6 @@
         btn.classList.remove('border-gray-300', 'text-gray-600');
         btn.classList.add('border-[#1e3a5f]');
 
-        renderTable();
       });
     }
 
@@ -192,6 +193,7 @@
     initButtonGroup('gender-buttons', 'gender');
     initButtonGroup('category-buttons', 'category');
     renderTable();
+    if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
   </script>
 </body>
 </html>
