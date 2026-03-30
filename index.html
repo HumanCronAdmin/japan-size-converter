@@ -159,6 +159,7 @@
         headerRow.appendChild(th);
       });
 
+      gtag('event', 'size_converted', {conversion_type: state.category, country: state.country, gender: state.gender});
       // Build rows
       tbody.innerHTML = '';
       data.rows.forEach((row) => {
