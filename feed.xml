@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Japan Size Converter</title>
+  <link href="https://humancronadmin.github.io/japan-size-converter/" rel="alternate"/>
+  <link href="https://humancronadmin.github.io/japan-size-converter/feed.xml" rel="self"/>
+  <id>https://humancronadmin.github.io/japan-size-converter/</id>
+  <updated>2026-04-11T03:27:51Z</updated>
+  <author><name>HumanCron</name></author>
+  <entry>
+    <title>Japanese Sizes: Avoiding Common Shopping Mistakes</title>
+    <link href="https://humancronadmin.github.io/japan-size-converter/articles/japanese-sizes-common-mistakes-foreigners.html" rel="alternate"/>
+    <id>https://humancronadmin.github.io/japan-size-converter/articles/japanese-sizes-common-mistakes-foreigners.html</id>
+    <updated>2026-04-11T03:27:51Z</updated>
+    <summary>Foreigners often struggle with Japanese clothing and shoe sizes. Learn common mistakes and insider tips to find your perfect fit in Japan.</summary>
+  </entry>
+</feed>
