@@ -1,0 +1,4 @@
+User Agent*.
+Allow/
+
+Site Map: https://yourusername.github.io/japan-size-converter/sitemap.xml
